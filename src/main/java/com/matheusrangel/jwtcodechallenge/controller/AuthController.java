@@ -1,5 +1,6 @@
 package com.matheusrangel.jwtcodechallenge.controller;
 
+import com.matheusrangel.jwtcodechallenge.dto.response.AuthResponse;
 import com.matheusrangel.jwtcodechallenge.service.AuthServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,17 +20,17 @@ public class AuthController {
     }
 
     @GetMapping
-    public ResponseEntity<Boolean> authenticate(
+    public ResponseEntity<AuthResponse> authenticate(
             @RequestHeader("Authorization") String token
     ) {
         var valid = authService.authenticate(token);
 
         if (valid) {
-            return ResponseEntity.ok(true);
+            return ResponseEntity.ok(new AuthResponse(true));
         }
 
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
-                .body(false);
+                .body(new AuthResponse(false));
     }
 }
