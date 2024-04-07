@@ -21,14 +21,14 @@ Caso de sucesso:
 Http Status 200 - OK
 ```json
 {
-  "valid": "true"
+  "valid": true
 }
 ```
 Caso de JWT inválido:
 Http Status 401- UNAUTHORIZED
 ```json
 {
-  "valid": "false"
+  "valid": false
 }
 ```
 # Requisitos
