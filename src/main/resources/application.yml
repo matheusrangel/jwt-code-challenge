@@ -6,6 +6,7 @@ spring:
 logging:
   level:
     com.matheusrangel.jwtcodechallenge: ${LOG_LEVEL:DEBUG}
+    org.springframework.web.filter.CommonsRequestLoggingFilter: ${LOG_LEVEL:DEBUG}
 
 jwt:
   signed: ${JWT_SIGNED:false}

@@ -59,6 +59,10 @@ mvn clean test org.pitest:pitest-maven:mutationCoverage jacoco:report
 ## Collections dos Casos de teste
 Para facilitar a execução dos casos de teste, uma collection do Insomnia foi disponibilizada no arquivo **insomnia-collection** localizado na raiz do projeto. Esse arquivo deve ser importado na ferramenta.
 
+## Swagger UI
+A documentação da API também está disponível via Swagger UI. Ao executar a aplicação, acesse no seu browser a página `http://localhost:8080/swagger-ui/index.html`.
+> Nessa versão do Swagger, ao tentar usar o a função 'Try it out', ele não passa o header Authorization, mesmo incluindo algum valor. Para realizar os testes então peço que use a collection do Insomnia.
+
 # Descrição dos métodos
 O projeto está em uma arquitetura MVC simples. A classe **AuthServiceImpl.java** faz o parse do JWT para obter as Claims e realiza a validação dos critérios pedidos a partir do método **authenticate**. Caso ocorra alguma Exception o erro é logado e a API retorna o token como inválido.
 

@@ -18,6 +18,7 @@
 		<jjwt.version>0.11.2</jjwt.version>
 		<jacoco.version>0.8.12</jacoco.version>
 		<pitest.version>1.14.2</pitest.version>
+		<springdoc.version>2.2.0</springdoc.version>
 		<pitest-junit5-plugin.version>1.2.0</pitest-junit5-plugin.version>
 	</properties>
 	<dependencies>
@@ -50,6 +51,11 @@
 			<artifactId>jjwt-jackson</artifactId>
 			<version>${jjwt.version}</version>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>${springdoc.version}</version>
 		</dependency>
 
 		<dependency>
