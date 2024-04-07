@@ -5,9 +5,9 @@ spring:
 
 logging:
   level:
-    com.matheusrangel.jwtcodechallenge: DEBUG
+    com.matheusrangel.jwtcodechallenge: ${LOG_LEVEL:DEBUG}
 
 jwt:
-  signed: false
-  signing-key: 24C826EFA558F4AEBAA36DBC8C2559276B11D64C9CDCC72C98BB3EE4C8
-  valid-roles: ["Admin", "Member", "External"]
+  signed: ${JWT_SIGNED:false}
+  signing-key: ${JWT_SIGNING_KEY:24C826EFA558F4AEBAA36DBC8C2559276B11D64C9CDCC72C98BB3EE4C8}
+  valid-roles: ${JWT_VALID_ROLES:Admin,Member,External}
