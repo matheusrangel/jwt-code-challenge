@@ -62,9 +62,29 @@ Para facilitar a execução dos casos de teste, uma collection do Insomnia foi d
 # Descrição dos métodos
 O projeto está em uma arquitetura MVC simples. A classe **AuthServiceImpl.java** faz o parse do JWT para obter as Claims e realiza a validação dos critérios pedidos a partir do método **authenticate**. Caso ocorra alguma Exception o erro é logado e a API retorna o token como inválido.
 
+***authenticate*** -> Método principal declarado na Interface ``AuthService``. Na sua implementação ``AuthServiceImpl``, ele é responsável por validar um JWT e retornar um booleano que informa se é válido ou não.
+
+***parseToken*** -> Recebe a string JWT e caso a aplicação esteja configurado para validar JWT's assinados, chama o método ``parseSignedJwt``. Caso não esteja, chama o método ``parseUnsignedJwt``.
+
+***parseSignedJwt*** -> Utilizando a a biblioteca jjwt, realiza o parse do JWT utilizando a chave contida no arquivo ``application.yml`` (ou via variável de ambiente). Realizando o parse, retorna as Claims contidas no JWT.
+
+***parseUnsignedJwt*** -> Dado que o padrão JWT do formato do token ser ``header.payload.signature``, ele remove a parte de assinatura da string e realizar o parse do JWT utilizando a biblioteca jjwt e retorna as Claims obtidas. **OBSERVAÇÃO** - *Essa é uma prática não segura e só foi utilizada devido aos cenários de teste.*
+
+***validateClaims*** -> Recebe as Claims do JWT e valida todas os critérios chamando o método de validação específico de cada critério.
+
+***hasRequiredClaims*** -> Recebe as Claims e valida se contém apenas as Claims **Role, Name e Seed**. Caso não, loga e retorna false.
+
+***validateNameClaim*** -> Recebe as Claims e valida se a Claim Name possui até 256 caracteres e utilizando Regex valida se não contém números. Caso negativo, loga e retorna false.
+
+***validateRoleClaim*** -> Recebe as Claims e valida se a Claim Role está na lista de roles permitidas (Admin,Member,External). Caso não esteja, loga e retorna false. OBSERVAÇÃO: A lista de roles é trazida via propriedades da aplicação e pode ser recebida via variável de ambiente.
+
+***validateSeedClaim*** -> Recebe as Claims e valida se a Claim Seed é um número primo atráves do método ``isPrime``. Caso não seja, loga e retorna false.
+
+***isPrime*** -> Recebe um inteiro e retorna se é um número primo.
+
 # Tratamento de Exceções
 Utilizei o ``@ControllerAdvice`` do Spring para realizar o tratamento de exceções da aplicação. Ela possui Handler genérico para tratar ``Exception.class`` impedindo que alguma exceção inesperada na aplicação retorne para o cliente. Assim como adicionei alguns handlers específicos para erros comuns de validação na API, como por exemplo quando o header Authorization não é enviado, esse erro vai ser tratado e uma resposta customizada será retornada na API, impedindo o retorno do stacktrace, como é o padrão nesse caso.
 
 
 ## Premissas assumidas
-Observei que nos cenários de teste não foram passados JWT's assinados. Então parametrizei na aplicação uma variável de ambiente chamada **JWT_SIGNED** que caso receba true, apenas aceita JWT's assinados. O valor default é **false**.
+Observei que nos casos de teste não foram passados JWT's assinados corretamente. Então parametrizei na aplicação uma variável de ambiente chamada **JWT_SIGNED** que caso receba true, apenas aceita JWT's assinados. O valor default é **false**.
