@@ -86,6 +86,11 @@ O projeto está em uma arquitetura MVC simples. A classe **AuthServiceImpl.java*
 
 ***isPrime*** -> Recebe um inteiro e retorna se é um número primo.
 
+# Logging
+O pacote observability contém 2 classes. A classe `RequestResponseLogInterceptor` implementa uma inteface de interceptadores servlet do Spring Web. Nesse interceptador implementei os métodos `preHandle` e `afterCompletion` que me dão acesso ao request e response ao chegarem e sairem da aplicação. Usei estes métodos para logar as requests e responses. Todos os logs da aplicação possuem spanId e traceId gerados pela lib *micrometer-tracing-bridge-brave*.
+
+A classe `WebMvcConfig` é um Bean de configuração que dá acesso ao método `addInterceptors`, onde adicionei o interceptador customizado para logs.
+
 # Tratamento de Exceções
 Utilizei o ``@ControllerAdvice`` do Spring para realizar o tratamento de exceções da aplicação. Ela possui Handler genérico para tratar ``Exception.class`` impedindo que alguma exceção inesperada na aplicação retorne para o cliente. Assim como adicionei alguns handlers específicos para erros comuns de validação na API, como por exemplo quando o header Authorization não é enviado, esse erro vai ser tratado e uma resposta customizada será retornada na API, impedindo o retorno do stacktrace, como é o padrão nesse caso.
 
