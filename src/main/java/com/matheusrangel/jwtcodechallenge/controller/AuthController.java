@@ -1,6 +1,7 @@
 package com.matheusrangel.jwtcodechallenge.controller;
 
 import com.matheusrangel.jwtcodechallenge.dto.response.AuthResponse;
+import com.matheusrangel.jwtcodechallenge.service.AuthService;
 import com.matheusrangel.jwtcodechallenge.service.AuthServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/v1/auth")
 public class AuthController {
 
-    private final AuthServiceImpl authService;
+    private final AuthService authService;
 
     public AuthController(AuthServiceImpl authService) {
         this.authService = authService;
