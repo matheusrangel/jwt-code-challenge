@@ -96,4 +96,10 @@ Utilizei o ``@ControllerAdvice`` do Spring para realizar o tratamento de exceç�
 
 
 ## Premissas assumidas
-Observei que nos casos de teste não foram passados JWT's assinados corretamente. Então parametrizei na aplicação uma variável de ambiente chamada **JWT_SIGNED** que caso receba true, apenas aceita JWT's assinados. O valor default é **false**.
+Observei que nos casos de teste não foram passados JWT's assinados de forma válida. Então parametrizei na aplicação uma variável de ambiente chamada **JWT_SIGNED** que caso receba true, apenas aceita JWT's assinados. O valor default é **false**.
+
+# Infra
+
+Foi disponibilizado no diretorio `/infra` um script terraform que realiza o deploy da aplicação na AWS usando ECS com Fargate. Para o script funcionar existem 2 premissas:
+1. Preenchimento das variáveis de ambiente das credenciais da conta aws: *AWS_ACCESS_KEY_ID* e *AWS_SECRET_ACCESS_KEY*
+2. Envio da imagem docker para o ECR criado no script.
